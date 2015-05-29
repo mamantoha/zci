@@ -1,0 +1,29 @@
+---
+# Crowdin API credentials
+crowdin_project_id: '<%your-crowdin-project-id%>'
+crowdin_api_key: '<%your-crowdin-api-key%>'
+crowdin_base_url: 'https://api.crowdin.com'
+
+# Zendesk API credentials
+zendesk_base_url: 'https://<%subdomain%>.zendesk.com'
+zendesk_username: '<%your-zendesk-username%>'
+zendesk_password: '<%your-zendesk-password%>'
+
+# Zendesk catogories
+categories:
+- zendesk_category: '<%zendesk-category-id%>'
+  translations:
+    -
+      crowdin_language_code: '<%crowdin-two-letters-code%>'
+      zendesk_locale: '<%zendesk-locale%>'
+    -
+      crowdin_language_code: '<%crowdin-two-letters-code%>'
+      zendesk_locale: '<%zendesk-locale%>'
+- zendesk_category: '<%zendesk-category-id%>'
+  translations:
+    -
+      crowdin_language_code: '<%crowdin-two-letters-code%>'
+      zendesk_locale: '<%zendesk-locale%>'
+    -
+      crowdin_language_code: '<%crowdin-two-letters-code%>'
+      zendesk_locale: '<%zendesk-locale%>'

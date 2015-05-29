@@ -1,0 +1,82 @@
+#!/usr/bin/env ruby
+require 'gli'
+require 'zci'
+
+include GLI::App
+include ZCI
+
+program_desc 'is a command line tool that allows you to manage and synchronize your Zendesk localization with Crowdin project'
+
+sort_help :manually # help commands are ordered in the order declared
+
+version ZCI::VERSION
+
+subcommand_option_handling :normal
+arguments :strict
+
+desc 'Be verbose'
+switch [:v, :verbose], negatable: false
+
+desc 'Project-specific configuration file'
+default_value File.join(Dir.pwd, 'zci.yml')
+arg_name '<s>'
+flag [:c, :config]
+
+commands_from 'zci/commands'
+
+pre do |global, command, options, args|
+  # Pre logic here
+  # Return true to proceed; false to abort and not call the
+  # chosen command
+  # Use skips_pre before a command to skip this block
+  # on that command only
+
+  unless File.exists?(global[:config])
+    exit_now! <<-EOS.strip_heredoc
+      Can't find configuration file (default `zci.yml').
+      Type `zci help` to know how to specify custom configuration file
+    EOS
+  end
+
+  # load project-specific configuration
+  begin
+    @cli_config = YAML.load(File.read(global[:config])) || {}
+  rescue Psych::SyntaxError => err
+    exit_now! <<-EOS
+      Could not parse YAML: #{err.message}
+    EOS
+  end
+
+  @zendesk = ZendeskAPI::Client.new do |config|
+    config.url       = @cli_config['zendesk_base_url']
+    config.username  = @cli_config['zendesk_username']
+    config.password  = @cli_config['zendesk_password']
+
+    if global[:verbose]
+      require 'logger'
+      config.logger = Logger.new(STDOUT)
+    end
+  end
+
+  if global[:verbose]
+    Crowdin::API.log = Logger.new(STDOUT) if globals[:verbose]
+  end
+
+  @crowdin = Crowdin::API.new(api_key: @cli_config['crowdin_api_key'], project_id: @cli_config['crowdin_project_id'], base_url: @cli_config['crowdin_base_url'])
+
+  true
+end
+
+post do |global, command, options, args|
+  # Post logic here
+  # Use skips_post before a command to skip this
+  # block on that command only
+end
+
+on_error do |exception|
+  # Error logic here
+  # return false to skip default error handling
+  true
+end
+
+exit run(ARGV)
