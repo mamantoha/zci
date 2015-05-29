@@ -4,5 +4,5 @@ Feature: My bootstrapped app kinda works
   So I don't have to do it myself
 
   Scenario: App just runs
-    When I get help for "fci"
+    When I get help for "zci"
     Then the exit status should be 0

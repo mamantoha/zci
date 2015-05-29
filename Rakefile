@@ -10,7 +10,7 @@ Rake::RDocTask.new do |rd|
   rd.title = 'Your application title'
 end
 
-spec = eval(File.read('fci.gemspec'))
+spec = eval(File.read('zci.gemspec'))
 
 Gem::PackageTask.new(spec) do |pkg|
 end

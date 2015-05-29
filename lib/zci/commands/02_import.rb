@@ -118,6 +118,6 @@ command :'import:sources' do |c|
 
         end
       end
-    end # @fci_config['categories'].each
+    end # @cli_config['categories'].each
   end
 end
