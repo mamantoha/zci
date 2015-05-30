@@ -59,7 +59,7 @@ pre do |global, command, options, args|
   end
 
   if global[:verbose]
-    Crowdin::API.log = Logger.new(STDOUT) if globals[:verbose]
+    Crowdin::API.log = Logger.new(STDOUT) if global[:verbose]
   end
 
   @crowdin = Crowdin::API.new(api_key: @cli_config['crowdin_api_key'], project_id: @cli_config['crowdin_project_id'], base_url: @cli_config['crowdin_base_url'])

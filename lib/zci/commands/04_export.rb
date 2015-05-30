@@ -40,13 +40,15 @@ command :'export:translations' do |c|
           all_sections.each do |section_hash|
             if section = sections.find(id: section_hash[:id])
               if section_tr = section.translations.detect { |tr| tr.locale == locale.locale }
-                puts "[Zendesk] Update `#{lang['crowdin_language_code']}` language translation for Section\##{section.id}."
-                section_tr = section_tr.update(name: section_hash[:name], description: section_hash[:description])
-                section_tr.save
+                section_tr.update(name: section_hash[:name], description: section_hash[:description])
+                if section_tr.changed?
+                  section_tr.save
+                  puts "[Zendesk] Update `#{lang['crowdin_language_code']}` language translation for Section\##{section.id}."
+                end
               else
-                puts "[Zendesk] Create `#{lang['crowdin_language_code']}` language translation for Section\##{section.id}."
                 section_tr = section.translations.build(locale: locale.locale, name: section_hash[:name], description: section_hash[:description])
                 section_tr.save
+                puts "[Zendesk] Create `#{lang['crowdin_language_code']}` language translation for Section\##{section.id}."
               end
             end
           end
@@ -57,13 +59,15 @@ command :'export:translations' do |c|
             if section = sections.find(id: article_hash[:section_id])
               if article = section.articles.find(id: article_hash[:id])
                 if article_tr = article.translations.detect { |tr| tr.locale == locale.locale }
-                  puts "[Zendesk] Update `#{lang['crowdin_language_code']}` language translation for Article\##{article.id}."
-                  article_tr = article_tr.update(title: article_hash[:title], body: article_hash[:body])
-                  article_tr.save
+                  article_tr.update(title: article_hash[:title], body: article_hash[:body])
+                  if article_tr.changed?
+                    article_tr.save
+                    puts "[Zendesk] Update `#{lang['crowdin_language_code']}` language translation for Article\##{article.id}."
+                  end
                 else
-                  puts "[Zendesk] Create `#{lang['crowdin_language_code']}` language translation for Article\##{article.id}."
                   article_tr = article.translations.build(locale: locale.locale, title: article_hash[:title], body: article_hash[:body])
                   article_tr.save
+                  puts "[Zendesk] Create `#{lang['crowdin_language_code']}` language translation for Article\##{article.id}."
                 end
               end
             end
