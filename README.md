@@ -29,7 +29,7 @@ The simplest way to get started is to create a scaffold project:
 > zci init todo
 ```
 
-A new ./todo directory is created containing the sample config `zci.yml`. View the basic output of the scaffold with:
+A new ./todo directory is created with sample config `zci.yml`. View the basic output of the scaffold with:
 
 ```
 > cd todo
@@ -40,7 +40,7 @@ Which will output:
 
 ```
 NAME
-    zci - is a command line tool that allows you to manage and synchronize your Zendesk localization with Crowdin project
+    zci - is a command line tool that allows you to manage and synchronize your Zendesk article localization with Crowdin project
 
 SYNOPSIS
     zci [global options] command [command options] [arguments...]
@@ -55,10 +55,10 @@ GLOBAL OPTIONS
     --help           - Show this message
 
 COMMANDS
-    help                  - Shows a list of commands or help for one command
-    init:project          - Create a new ZCI-based project
+    help                  - Shows a list of commands or help for particular command
+    init:project          - Create the new ZCI-based project
     import:sources        - Read categories/section/articles from Zendesk and upload resource files to Crowdin
-    download:translations - Build and download last exported translation resources from Crowdin
+    download:translations - Build and download translation resources from Crowdin
     export:translations   - Add or update localized resource files(sections and articles) in Zendesk
 ```
 
