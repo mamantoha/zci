@@ -1,4 +1,4 @@
-desc 'Build and download last exported translation resources from Crowdin'
+desc 'Build and download translation resources from Crowdin'
 command :'download:translations' do |c|
   c.desc 'Directory of resource files'
   c.long_desc <<-EOS.strip_heredoc

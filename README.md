@@ -29,7 +29,7 @@ The simplest way to get started is to create a scaffold project:
 > zci init todo
 ```
 
-A new ./todo directory is created containing the sample config `zci.yml`. View the basic output of the scaffold with:
+A new ./todo directory is created with the sample config `zci.yml`. View the basic output of the scaffold with:
 
 ```
 > cd todo
@@ -46,19 +46,19 @@ SYNOPSIS
     zci [global options] command [command options] [arguments...]
 
 VERSION
-    0.0.1
+    0.0.2
 
 GLOBAL OPTIONS
-    -c, --config=<s> - Project-specific configuration file (default: /home/user/todo/zci.yml)
+    -c, --config=<s> - Project-specific configuration file (default: /home/user/project/zci.yml)
     --version        - Display the program version
     -v, --verbose    - Be verbose
     --help           - Show this message
 
 COMMANDS
     help                  - Shows a list of commands or help for one command
-    init:project          - Create a new ZCI-based project
+    init:project          - Create new ZCI-based project
     import:sources        - Read categories/section/articles from Zendesk and upload resource files to Crowdin
-    download:translations - Build and download last exported translation resources from Crowdin
+    download:translations - Build and download translation resources from Crowdin
     export:translations   - Add or update localized resource files(sections and articles) in Zendesk
 ```
 

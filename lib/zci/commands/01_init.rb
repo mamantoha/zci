@@ -1,4 +1,4 @@
-desc 'Create a new ZCI-based project'
+desc 'Create new ZCI-based project'
 arg 'project_name'
 arg_name 'project_name'
 skips_pre
