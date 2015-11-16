@@ -84,10 +84,10 @@ command :'import:sources' do |c|
         ]
 
         if remote_project_tree[:files].include?("/#{source_category_id}/#{file_name}")
-          puts "[Crowdin] Update file `#{file_name}`"
+          puts "[Crowdin] Update section file `#{file_name}`"
           @crowdin.update_file(files, type: 'webxml')
         else
-          puts "[Crowdin] Add file `#{file_name}`"
+          puts "[Crowdin] Add section file `#{file_name}`"
           @crowdin.add_file(files, type: 'webxml')
         end
       end
@@ -110,10 +110,10 @@ command :'import:sources' do |c|
         ]
 
         if remote_project_tree[:files].include?("/#{source_category_id}/#{file_name}")
-          puts "[Crowdin] Update file `#{file_name}`"
+          puts "[Crowdin] Update article file `#{file_name}`"
           @crowdin.update_file(files, type: 'webxml')
         else
-          puts "[Crowdin] Add file `#{file_name}`"
+          puts "[Crowdin] Add article file `#{file_name}`"
           @crowdin.add_file(files, type: 'webxml')
 
         end
