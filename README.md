@@ -117,6 +117,6 @@ Tested with the following Ruby versions:
 
 Author: Anton Maminov (anton.maminov@gmail.com)
 
-Copyright: 2015 [crowdin.com](http://crowdin.com/)
+Copyright: 2015-2016 [crowdin.com](http://crowdin.com/)
 
 This project is licensed under the MIT license, a copy of which can be found in the LICENSE file.
