@@ -21,7 +21,7 @@ command :'import:sources' do |c|
 
       # Check if Category exists in Zendesk
       source_category = @zendesk.hc_categories.find(id: source_category_id)
-      raise('No such category') unless source_category.id == source_category_id
+      raise('No such category') if source_category.nil? || source_category.id != source_category_id
 
       # Get category's sections in Zendesk
       puts "[Zendesk] Get sections for Category with id #{source_category_id}"
@@ -55,6 +55,7 @@ command :'import:sources' do |c|
       remote_project_tree = get_remote_files_hierarchy(crowdin_project_info['files'])
 
       resources_category_dir = File.join(resources_dir, source_category_id.to_s)
+
       unless File.exists?(resources_category_dir)
         FileUtils.mkdir(resources_category_dir)
       end

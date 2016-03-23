@@ -13,7 +13,7 @@ command :'export:translations' do |c|
 
     @cli_config['categories'].each do |category|
       @zendesk.locales.select { |locale| !locale.default? }.each do |locale|
-        if lang = category['translations'].detect { |tr| tr['zendesk_locale'] == locale.locale }
+        if lang = category['translations'].detect { |tr| tr['zendesk_locale'].casecmp(locale.locale) == 0 }
           section_xml_files = Dir["#{resources_dir}/#{lang['crowdin_language_code']}/#{category['zendesk_category']}/section_*.xml"]
           article_xml_files = Dir["#{resources_dir}/#{lang['crowdin_language_code']}/#{category['zendesk_category']}/article_*.xml"]
 
@@ -39,8 +39,8 @@ command :'export:translations' do |c|
           sections = @zendesk.sections
           all_sections.each do |section_hash|
             if section = sections.find(id: section_hash[:id])
-              if section_tr = section.translations.detect { |tr| tr.locale == locale.locale }
-                section_tr.update(name: section_hash[:name], description: section_hash[:description])
+              if section_tr = section.translations.detect { |tr| tr.locale.casecmp(locale.locale) == 0 }
+                section_tr.update(title: section_hash[:name], body: section_hash[:description])
                 if section_tr.changed?
                   section_tr.save
                   puts "[Zendesk] Update `#{lang['crowdin_language_code']}` language translation for Section\##{section.id}."
@@ -58,7 +58,7 @@ command :'export:translations' do |c|
           all_articles.each do |article_hash|
             if section = sections.find(id: article_hash[:section_id])
               if article = section.articles.find(id: article_hash[:id])
-                if article_tr = article.translations.detect { |tr| tr.locale == locale.locale }
+                if article_tr = article.translations.detect { |tr| tr.locale.casecmp(locale.locale) == 0 }
                   article_tr.update(title: article_hash[:title], body: article_hash[:body])
                   if article_tr.changed?
                     article_tr.save

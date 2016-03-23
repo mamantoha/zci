@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 require 'gli'
 require 'zci'
+# require 'byebug'
 
 include GLI::App
 include ZCI
