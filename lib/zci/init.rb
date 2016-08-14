@@ -38,7 +38,7 @@ module ZCI
     crowdin_base_url: 'https://api.crowdin.com'
 
     # Zendesk API credentials
-    zendesk_base_url: 'https://<%subdomain%>.zendesk.com'
+    zendesk_base_url: 'https://<%subdomain%>.zendesk.com/api/v2/'
     zendesk_username: '<%your-zendesk-username%>'
     zendesk_password: '<%your-zendesk-password%>'
 
