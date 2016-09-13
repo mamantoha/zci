@@ -30,8 +30,8 @@ module ZCI
 
   def build_article_xml(article)
     # remove control chars, unicode codepoints from 0001 to 001A
-    article.title.gsub!(/[\u0001-\u001A]/ , '')
-    article.body.gsub!(/[\u0001-\u001A]/ , '')
+    article.title.to_s.gsub!(/[\u0001-\u001A]/ , '')
+    article.body.to_s.gsub!(/[\u0001-\u001A]/ , '')
 
     article_xml = Nokogiri::XML::Builder.new do |xml|
       xml.root {
