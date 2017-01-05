@@ -79,7 +79,7 @@ command :'import:sources' do |c|
           {
             source:         File.join(resources_category_dir, file_name),
             dest:           File.join(source_category_id.to_s, file_name),
-            export_pattert: '/%two_letters_code%/%original_path%/%original_file_name%',
+            export_pattern: '/%two_letters_code%/%original_path%/%original_file_name%',
             title:          section[:name]
           }
         ]
@@ -105,7 +105,7 @@ command :'import:sources' do |c|
           {
             source:         File.join(resources_category_dir, file_name),
             dest:           File.join(source_category_id.to_s, file_name),
-            export_pattert: '/%two_letters_code%/%original_path%/%original_file_name%',
+            export_pattern: '/%two_letters_code%/%original_path%/%original_file_name%',
             title:          article[:title]
           }
         ]
