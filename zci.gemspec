@@ -25,5 +25,4 @@ spec = Gem::Specification.new do |s|
   s.add_development_dependency 'rake','~> 0'
   s.add_development_dependency 'rdoc', '~> 0'
   s.add_development_dependency 'aruba', '~> 0'
-  s.add_development_dependency 'byebug', '~> 0'
 end

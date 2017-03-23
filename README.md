@@ -102,8 +102,8 @@ categories:
 
 Tested with the following Ruby versions:
 
-- MRI 2.2.0
-- JRuby 9.0.0.0.pre2
+- MRI 2.2.3
+- JRuby 9.0.0.0
 
 ## Contributing
 
