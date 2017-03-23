@@ -1,4 +1,4 @@
-desc 'Add or update localized resource files(sections and articles) in Zendesk'
+desc 'Add or update localized resource files(categories, sections and articles) in Zendesk'
 command :'export:translations' do |c|
   c.desc 'Directory of resource files'
   c.long_desc <<-EOS.strip_heredoc
