@@ -21,7 +21,14 @@ command :'import:sources' do |c|
 
       # Check if Category exists in Zendesk
       source_category = @zendesk.hc_categories.find(id: source_category_id)
-      raise('No such category') if source_category.nil? || source_category.id != source_category_id
+
+      if source_category.nil? || source_category.id != source_category_id
+        puts "[Zendesk] No category with id #{source_category_id}"
+        next
+      end
+
+      category_xml = build_category_xml(source_category)
+      category_hash = build_category_hash(source_category).merge({ xml: category_xml })
 
       # Get category's sections in Zendesk
       puts "[Zendesk] Get sections for Category with id #{source_category_id}"
@@ -65,6 +72,30 @@ command :'import:sources' do |c|
         puts "[Crowdin] Create directory `#{source_category_id}`"
         @crowdin.add_directory(source_category_id.to_s)
         @crowdin.change_directory(source_category_id.to_s, title: source_category.attributes[:name])
+      end
+
+      # Create xml file for category and upload to Crowdin
+      file_name = "category_#{category_hash[:id]}.xml"
+
+      o = File.new(File.join(resources_category_dir, file_name), 'w')
+      o.write(category_hash[:xml].to_xml)
+      o.close
+
+      files = [
+        {
+          source:         File.join(resources_category_dir, file_name),
+          dest:           File.join(source_category_id.to_s, file_name),
+          export_pattern: '/%two_letters_code%/%original_path%/%original_file_name%',
+          title:          category_hash[:name]
+        }
+      ]
+
+      if remote_project_tree[:files].include?("/#{source_category_id}/#{file_name}")
+        puts "[Crowdin] Update category file `#{file_name}`"
+        @crowdin.update_file(files, type: 'webxml')
+      else
+        puts "[Crowdin] Add category file `#{file_name}`"
+        @crowdin.add_file(files, type: 'webxml')
       end
 
       # Creates xml files for sections and upload to Crowdin

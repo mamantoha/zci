@@ -14,11 +14,20 @@ command :'export:translations' do |c|
     @cli_config['categories'].each do |category|
       @zendesk.locales.select { |locale| !locale.default? }.each do |locale|
         if lang = category['translations'].detect { |tr| tr['zendesk_locale'].casecmp(locale.locale) == 0 }
+          category_xml_files = Dir["#{resources_dir}/#{lang['crowdin_language_code']}/#{category['zendesk_category']}/category_*.xml"]
           section_xml_files = Dir["#{resources_dir}/#{lang['crowdin_language_code']}/#{category['zendesk_category']}/section_*.xml"]
           article_xml_files = Dir["#{resources_dir}/#{lang['crowdin_language_code']}/#{category['zendesk_category']}/article_*.xml"]
 
+          all_categories = []
           all_sections = []
           all_articles = []
+
+          # Read categories from XML files
+          category_xml_files.each do |file|
+            category_xml_file = File.read(file)
+            category = parse_category_xml(category_xml_file)
+            all_categories << category
+          end
 
           # Read sections from XML files
           section_xml_files.each do |file|
@@ -34,6 +43,25 @@ command :'export:translations' do |c|
             all_articles << article
           end
 
+          ### Categories
+          #
+          categories = @zendesk.hc_categories
+          all_categories.each do |category_hash|
+            if category = categories.find(id: category_hash[:id])
+              if category_tr = category.translations.detect { |tr| tr.locale.casecmp(locale.locale) == 0 }
+                category_tr.update(title: category_hash[:name], body: category_hash[:description])
+                if category_tr.changed?
+                  category_tr.save
+                  puts "[Zendesk] Update `#{lang['crowdin_language_code']}` language translation for Category\##{category.id}."
+                end
+              else
+                category_tr = category.translations.build(locale: locale.locale, title: category_hash[:name], body: category_hash[:description])
+                category_tr.save
+                puts "[Zendesk] Create `#{lang['crowdin_language_code']}` language translation for Category\##{category.id}."
+              end
+            end
+          end
+
           ### Sections
           #
           sections = @zendesk.sections
@@ -46,7 +74,7 @@ command :'export:translations' do |c|
                   puts "[Zendesk] Update `#{lang['crowdin_language_code']}` language translation for Section\##{section.id}."
                 end
               else
-                section_tr = section.translations.build(locale: locale.locale, name: section_hash[:name], description: section_hash[:description])
+                section_tr = section.translations.build(locale: locale.locale, title: section_hash[:name], body: section_hash[:description])
                 section_tr.save
                 puts "[Zendesk] Create `#{lang['crowdin_language_code']}` language translation for Section\##{section.id}."
               end

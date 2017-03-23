@@ -1,4 +1,31 @@
 module ZCI
+
+  def build_category_xml(category)
+    category_xml = Nokogiri::XML::Builder.new do |xml|
+      xml.root {
+        xml.category(id: category.id, position: category.position, identifier: 'category', type: 'document') {
+          xml.name {
+            xml.cdata category.name
+          }
+          xml.description {
+            xml.cdata category.description
+          }
+        }
+      }
+    end
+
+    return category_xml
+  end
+
+  def build_category_hash(category)
+    return {
+      id:          category.id,
+      position:    category.position,
+      name:        category.name,
+      description: category.description,
+    }
+  end
+
   def build_section_xml(section)
     section_xml = Nokogiri::XML::Builder.new do |xml|
       xml.root {

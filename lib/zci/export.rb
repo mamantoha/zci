@@ -1,4 +1,19 @@
 module ZCI
+
+  def parse_category_xml(xml_file)
+    doc = Nokogiri::XML.parse(xml_file)
+    category_xml = doc.xpath("//category").first
+
+    category = {
+      id: category_xml[:id],
+      name: category_xml.xpath('name').text,
+      description: category_xml.xpath('description').text,
+      position: category_xml[:position],
+    }
+
+    return category
+  end
+
   def parse_section_xml(xml_file)
     doc = Nokogiri::XML.parse(xml_file)
     section_xml = doc.xpath("//section").first
