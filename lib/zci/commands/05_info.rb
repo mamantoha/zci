@@ -1,5 +1,3 @@
-require 'byebug'
-
 desc 'Zendesk and Crowdin info'
 command :'project:info' do |c|
   c.action do |global_options, options, args|
