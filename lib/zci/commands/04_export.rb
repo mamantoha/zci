@@ -8,11 +8,23 @@ command :'export:translations' do |c|
   c.arg_name 'dir'
   c.flag [:resources_dir]
 
+  c.desc 'Defines what language upload translations to. By default translations will be uploaded for all languages'
+  c.default_value 'all'
+  c.arg_name 'language_code'
+  c.flag [:l, :language]
+
   c.action do |global_options, options, args|
     resources_dir = File.join(File.dirname(global_options[:config]), options[:resources_dir])
+    language = options[:language]
+
+    if language == 'all'
+      zendesk_locales = @zendesk.locales
+    else
+      zendesk_locales  = @zendesk.locales.select { |locale| locale.locale == language }
+    end
 
     @cli_config['categories'].each do |category|
-      @zendesk.locales.select { |locale| !locale.default? }.each do |locale|
+      zendesk_locales.select { |locale| !locale.default? }.each do |locale|
         if lang = category['translations'].detect { |tr| tr['zendesk_locale'].casecmp(locale.locale) == 0 }
           category_xml_files = Dir["#{resources_dir}/#{lang['crowdin_language_code']}/#{category['zendesk_category']}/category_*.xml"]
           section_xml_files = Dir["#{resources_dir}/#{lang['crowdin_language_code']}/#{category['zendesk_category']}/section_*.xml"]
@@ -102,7 +114,7 @@ command :'export:translations' do |c|
           end
 
         end
-      end # @zendesk.locales
+      end # zendesk_locales
     end # @cli_config['categories'].each
   end
 end
