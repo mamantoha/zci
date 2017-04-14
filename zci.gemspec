@@ -18,7 +18,7 @@ spec = Gem::Specification.new do |s|
   s.executables << 'zci'
   s.add_runtime_dependency 'nokogiri', '~> 1.7', '>= 1.7.0'
   s.add_runtime_dependency 'rubyzip', '~> 1.2', '>= 1.2.0'
-  s.add_runtime_dependency 'crowdin-api', '~> 0.4', '>= 0.4.0'
+  s.add_runtime_dependency 'crowdin-api', '~> 0.5', '>= 0.5.0'
   s.add_runtime_dependency 'zendesk_help_center_api', '~> 0.2', '>= 0.2.0'
   s.add_runtime_dependency 'gli', '~> 2.16', '>= 2.16.0'
   s.add_development_dependency 'rake', '~> 12.0', '>= 12.0.0'
