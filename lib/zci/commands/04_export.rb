@@ -23,12 +23,12 @@ command :'export:translations' do |c|
       zendesk_locales  = @zendesk.locales.select { |locale| locale.locale == language }
     end
 
-    @cli_config['categories'].each do |category|
+    @cli_config['categories'].each do |category_section|
       zendesk_locales.select { |locale| !locale.default? }.each do |locale|
-        if lang = category['translations'].detect { |tr| tr['zendesk_locale'].casecmp(locale.locale) == 0 }
-          category_xml_files = Dir["#{resources_dir}/#{lang['crowdin_language_code']}/#{category['zendesk_category']}/category_*.xml"]
-          section_xml_files = Dir["#{resources_dir}/#{lang['crowdin_language_code']}/#{category['zendesk_category']}/section_*.xml"]
-          article_xml_files = Dir["#{resources_dir}/#{lang['crowdin_language_code']}/#{category['zendesk_category']}/article_*.xml"]
+        if lang = category_section['translations'].detect { |tr| tr['zendesk_locale'].casecmp(locale.locale) == 0 }
+          category_xml_files = Dir["#{resources_dir}/#{lang['crowdin_language_code']}/#{category_section['zendesk_category']}/category_*.xml"]
+          section_xml_files = Dir["#{resources_dir}/#{lang['crowdin_language_code']}/#{category_section['zendesk_category']}/section_*.xml"]
+          article_xml_files = Dir["#{resources_dir}/#{lang['crowdin_language_code']}/#{category_section['zendesk_category']}/article_*.xml"]
 
           all_categories = []
           all_sections = []
@@ -37,22 +37,22 @@ command :'export:translations' do |c|
           # Read categories from XML files
           category_xml_files.each do |file|
             category_xml_file = File.read(file)
-            category = parse_category_xml(category_xml_file)
-            all_categories << category
+            category_xml = parse_category_xml(category_xml_file)
+            all_categories << category_xml
           end
 
           # Read sections from XML files
           section_xml_files.each do |file|
             section_xml_file = File.read(file)
-            section = parse_section_xml(section_xml_file)
-            all_sections << section
+            section_xml = parse_section_xml(section_xml_file)
+            all_sections << section_xml
           end
 
           # Read articles from XML filse
           article_xml_files.each do |file|
             article_xml_file = File.read(file)
-            article = parse_article_xml(article_xml_file)
-            all_articles << article
+            article_xml = parse_article_xml(article_xml_file)
+            all_articles << article_xml
           end
 
           ### Categories
