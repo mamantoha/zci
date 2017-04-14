@@ -46,7 +46,7 @@ SYNOPSIS
     zci [global options] command [command options] [arguments...]
 
 VERSION
-    0.2.0
+    0.3.1
 
 GLOBAL OPTIONS
     -c, --config=<s> - Project-specific configuration file (default: /home/crowdin/zci.yml)
@@ -60,6 +60,7 @@ COMMANDS
     import:sources        - Read categories/section/articles from Zendesk and upload resource files to Crowdin
     download:translations - Build and download translation resources from Crowdin
     export:translations   - Add or update localized resource files(categories, sections and articles) in Zendesk
+    project:info          - Zendesk and Crowdin info
 ```
 
 ## Configuration
