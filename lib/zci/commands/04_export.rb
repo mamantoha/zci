@@ -105,7 +105,7 @@ command :'export:translations' do |c|
                     puts "[Zendesk] Update `#{lang['crowdin_language_code']}` language translation for Article\##{article.id}."
                   end
                 else
-                  article_tr = article.translations.build(locale: locale.locale, title: article_hash[:title], body: article_hash[:body])
+                  article_tr = article.translations.build(locale: locale.locale, draft: true, title: article_hash[:title], body: article_hash[:body])
                   article_tr.save
                   puts "[Zendesk] Create `#{lang['crowdin_language_code']}` language translation for Article\##{article.id}."
                 end
