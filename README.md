@@ -46,7 +46,7 @@ SYNOPSIS
     zci [global options] command [command options] [arguments...]
 
 VERSION
-    0.3.1
+    0.4.0
 
 GLOBAL OPTIONS
     -c, --config=<s> - Project-specific configuration file (default: /home/crowdin/zci.yml)
@@ -118,6 +118,6 @@ Tested with the following Ruby versions:
 
 Author: Anton Maminov (anton.maminov@gmail.com)
 
-Copyright: 2015-2017 [crowdin.com](http://crowdin.com/)
+Copyright: 2015-2019 [crowdin.com](http://crowdin.com/)
 
 This project is licensed under the MIT license, a copy of which can be found in the LICENSE file.
