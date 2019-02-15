@@ -6,39 +6,40 @@ Zendesk and Crowdin integration Command Line Interface (CLI)
 
 Add this line to your application's Gemfile:
 
-```
+```ruby
 gem 'zci'
 ```
 
 And then execute:
-```
-$ bundle
+
+```console
+bundle
 ```
 
 Or install it manually as:
 
-```
-$ gem install zci
+```console
+gem install zci
 ```
 
 ## Use
 
 The simplest way to get started is to create a scaffold project:
 
-```
-> zci init todo
+```console
+zci init todo
 ```
 
 A new ./todo directory is created with the sample config `zci.yml`. View the basic output of the scaffold with:
 
-```
-> cd todo
-> zci help
+```console
+cd todo
+zci help
 ```
 
 Which will output:
 
-```
+```console
 NAME
     zci - is a command line tool that allows you to manage and synchronize your Zendesk localization with Crowdin project
 
@@ -67,7 +68,7 @@ COMMANDS
 
 The scaffold project that was created in ./todo comes with a `zci.yml` shell.
 
-```
+```yaml
 ---
 # Crowdin API credentials
 crowdin_project_id: '<%your-crowdin-project-id%>'
@@ -118,6 +119,6 @@ Tested with the following Ruby versions:
 
 Author: Anton Maminov (anton.maminov@gmail.com)
 
-Copyright: 2015-2017 [crowdin.com](http://crowdin.com/)
+Copyright: 2015-2019 [crowdin.com](http://crowdin.com/)
 
 This project is licensed under the MIT license, a copy of which can be found in the LICENSE file.
