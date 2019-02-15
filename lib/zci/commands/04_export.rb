@@ -17,6 +17,8 @@ command :'export:translations' do |c|
     resources_dir = File.join(File.dirname(global_options[:config]), options[:resources_dir])
     language = options[:language]
 
+    crowdin_supported_languages = @crowdin.supported_languages
+
     if language == 'all'
       zendesk_locales = @zendesk.locales
     else
@@ -26,9 +28,11 @@ command :'export:translations' do |c|
     @cli_config['categories'].each do |category_section|
       zendesk_locales.select { |locale| !locale.default? }.each do |locale|
         if lang = category_section['translations'].detect { |tr| tr['zendesk_locale'].casecmp(locale.locale) == 0 }
-          category_xml_files = Dir["#{resources_dir}/#{lang['crowdin_language_code']}/#{category_section['zendesk_category']}/category_*.xml"]
-          section_xml_files = Dir["#{resources_dir}/#{lang['crowdin_language_code']}/#{category_section['zendesk_category']}/section_*.xml"]
-          article_xml_files = Dir["#{resources_dir}/#{lang['crowdin_language_code']}/#{category_section['zendesk_category']}/article_*.xml"]
+          crowdin_locale = crowdin_supported_languages.detect { |l| l['crowdin_code'] == lang['crowdin_language_code'] }['locale']
+
+          category_xml_files = Dir["#{resources_dir}/#{crowdin_locale}/#{category_section['zendesk_category']}/category_*.xml"]
+          section_xml_files = Dir["#{resources_dir}/#{crowdin_locale}/#{category_section['zendesk_category']}/section_*.xml"]
+          article_xml_files = Dir["#{resources_dir}/#{crowdin_locale}/#{category_section['zendesk_category']}/article_*.xml"]
 
           all_categories = []
           all_sections = []
