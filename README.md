@@ -1,5 +1,7 @@
 # ZCI
 
+[![Gem Version](http://img.shields.io/gem/v/zci.svg?style=flat)](http://rubygems.org/gems/zci)
+
 Zendesk and Crowdin integration Command Line Interface (CLI)
 
 ## Installation
