@@ -10,8 +10,9 @@ require 'zip'
 
 # Add requires for other files you add to your project here, so
 # you just need to require this one file in your bin file
-require 'zci/helpers.rb'
-require 'zci/init.rb'
-require 'zci/import.rb'
-require 'zci/download.rb'
-require 'zci/export.rb'
+require_relative 'zci/helpers'
+require_relative 'zci/init'
+require_relative 'zci/import'
+require_relative 'zci/download'
+require_relative 'zci/export'
+require_relative 'zci/clean'
