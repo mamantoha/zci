@@ -88,8 +88,8 @@ categories:
 - zendesk_category: '<%zendesk-category-id%>'
   translations:
     -
-      crowdin_language_code: '<%crowdin-two-letters-code%>'
-      zendesk_locale: '<%zendesk-locale%>'
+      crowdin_language_code: '<%crowdin-language-code%>' # the full list: https://support.crowdin.com/api/language-codes/
+      zendesk_locale: '<%zendesk-locale%>' # the full list: https://support.zendesk.com/hc/en-us/articles/203761906-Language-codes-for-Zendesk-supported-languages
     -
       crowdin_language_code: '<%crowdin-two-letters-code%>'
       zendesk_locale: '<%zendesk-locale%>'
