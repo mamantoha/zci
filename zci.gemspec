@@ -21,4 +21,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'rake', '~> 12.3'
   s.add_development_dependency 'rdoc', '~> 6.1'
   s.add_development_dependency 'aruba', '~> 0.14'
+  s.add_development_dependency 'pry', '~> 0.12.2'
 end

@@ -19,13 +19,22 @@ command :'export:translations' do |c|
 
     crowdin_supported_languages = @crowdin.supported_languages
 
-    if language == 'all'
-      zendesk_locales = @zendesk.locales
-    else
-      zendesk_locales  = @zendesk.locales.select { |locale| locale.locale == language }
-    end
-
     @cli_config['categories'].each do |category_section|
+      zendesk_url = category.fetch('brand_url', @cli_config['zendesk_base_url'])
+
+      zendesk_client = ZCI.initialize_zendesk_client(
+        zendesk_url,
+        @cli_config['zendesk_username'],
+        @cli_config['zendesk_password'],
+        global_options[:verbose]
+      )
+
+      if language == 'all'
+        zendesk_locales = zendesk_client.locales
+      else
+        zendesk_locales = zendesk_client.locales.select { |locale| locale.locale == language }
+      end
+
       zendesk_locales.select { |locale| !locale.default? }.each do |locale|
         if lang = category_section['translations'].detect { |tr| tr['zendesk_locale'].casecmp(locale.locale) == 0 }
           crowdin_locale = crowdin_supported_languages.detect { |l| l['crowdin_code'] == lang['crowdin_language_code'] }['locale']
@@ -61,7 +70,7 @@ command :'export:translations' do |c|
 
           ### Categories
           #
-          categories = @zendesk.hc_categories
+          categories = zendesk_client.hc_categories
           all_categories.each do |category_hash|
             if category = categories.find(id: category_hash[:id])
               if category_tr = category.translations.detect { |tr| tr.locale.casecmp(locale.locale) == 0 }
@@ -80,7 +89,7 @@ command :'export:translations' do |c|
 
           ### Sections
           #
-          sections = @zendesk.sections
+          sections = zendesk_client.sections
           all_sections.each do |section_hash|
             if section = sections.find(id: section_hash[:id])
               if section_tr = section.translations.detect { |tr| tr.locale.casecmp(locale.locale) == 0 }
