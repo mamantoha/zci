@@ -103,6 +103,23 @@ categories:
       zendesk_locale: '<%zendesk-locale%>'
 ```
 
+## Advance Usage
+
+This section covers some of `zci` more advanced features.
+
+### Brands
+
+To make changes and updates via the `Help Center API` in your branded `Help Centers` you will use the URL of the specific brand.
+
+For more information, see [Managing multiple brands](https://support.zendesk.com/hc/en-us/articles/204577973-Managing-multiple-brands-Professional-Add-on-and-Enterprise-).
+
+```yaml
+---
+categories:
+- zendesk_category: '<%zendesk-category-id%>'
+  brand_url: '<%zendesk-brand-url%>/api/v2/'
+```
+
 ## Supported Rubies
 
 Tested with the following Ruby versions:

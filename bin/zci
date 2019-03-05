@@ -47,18 +47,13 @@ pre do |global, command, options, args|
     EOS
   end
 
-  @zendesk = ZendeskAPI::Client.new do |config|
-    config.url       = @cli_config['zendesk_base_url']
-    config.username  = @cli_config['zendesk_username']
-    config.password  = @cli_config['zendesk_password']
-
-    if global[:verbose]
-      require 'logger'
-      config.logger = Logger.new(STDOUT)
-    end
-
-    config.client_options = {ssl: {verify: false}}
-  end
+  # Global Zendesk Client
+  @zendesk = ZCI.initialize_zendesk_client(
+    @cli_config['zendesk_base_url'],
+    @cli_config['zendesk_username'],
+    @cli_config['zendesk_password'],
+    global[:verbose]
+  )
 
   if global[:verbose]
     Crowdin::API.log = Logger.new(STDOUT) if global[:verbose]

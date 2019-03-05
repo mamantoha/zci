@@ -16,14 +16,20 @@ command :'import:sources' do |c|
     end
 
     @cli_config['categories'].each do |category|
-      zendesk_base_url = @cli_config.fetch('zendesk_branch', @cli_config['zendesk_base_url'])
-      @zendesk.config.url = zendesk_base_url
+      zendesk_url = category.fetch('brand_url', @cli_config['zendesk_base_url'])
+
+      zendesk_client = ZCI.initialize_zendesk_client(
+        zendesk_url,
+        @cli_config['zendesk_username'],
+        @cli_config['zendesk_password'],
+        global_options[:verbose]
+      )
 
       # Source Category
       source_category_id = category['zendesk_category'].to_i
 
       # Check if Category exists in Zendesk
-      source_category = @zendesk.hc_categories.find(id: source_category_id)
+      source_category = zendesk_client.hc_categories.find(id: source_category_id)
 
       if source_category.nil? || source_category.id != source_category_id
         puts "[Zendesk] No category with id #{source_category_id}"
