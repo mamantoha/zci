@@ -21,19 +21,35 @@ command :'project:info' do |c|
     # Zendesk
     if @zendesk.current_user.id
       puts "Zendesk: authentication successful."
-      categories = @zendesk.hc_categories
+      brands = @zendesk.brands
 
-      puts "Zendesk: available categories:"
-      categories.each do |category|
-        puts "  - #{category.id}: #{category.name}"
+      brands.each do |brand|
+        puts "Zendesk URL: #{brand.brand_url}"
+
+        zendesk_url = brand.brand_url + "/api/v2"
+
+        zendesk_client = ZCI.initialize_zendesk_client(
+          zendesk_url,
+          @cli_config['zendesk_username'],
+          @cli_config['zendesk_password'],
+          global_options[:verbose]
+        )
+
+        locales = zendesk_client.locales
+        categories = zendesk_client.hc_categories
+
+        puts "  available categories:"
+        categories.each do |category|
+          puts "    - #{category.id}: #{category.name}"
+        end
+
+        puts "  available locales:"
+        locales.each do |locale|
+          puts "    - #{locale.locale}"
+        end
+        puts
       end
 
-      locales = @zendesk.locales
-
-      puts "Zendesk: available locales:"
-      locales.each do |locale|
-        puts "  - #{locale.locale}"
-      end
     else
       puts "Zendesk: login and/or password is incorect"
     end
