@@ -26,6 +26,9 @@ command :'export:translations' do |c|
     end
 
     @cli_config['categories'].each do |category_section|
+      zendesk_base_url = @cli_config.fetch('zendesk_branch', @cli_config['zendesk_base_url'])
+      @zendesk.config.url = zendesk_base_url
+
       zendesk_locales.select { |locale| !locale.default? }.each do |locale|
         if lang = category_section['translations'].detect { |tr| tr['zendesk_locale'].casecmp(locale.locale) == 0 }
           crowdin_locale = crowdin_supported_languages.detect { |l| l['crowdin_code'] == lang['crowdin_language_code'] }['locale']

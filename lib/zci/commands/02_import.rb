@@ -16,6 +16,9 @@ command :'import:sources' do |c|
     end
 
     @cli_config['categories'].each do |category|
+      zendesk_base_url = @cli_config.fetch('zendesk_branch', @cli_config['zendesk_base_url'])
+      @zendesk.config.url = zendesk_base_url
+
       # Source Category
       source_category_id = category['zendesk_category'].to_i
 
