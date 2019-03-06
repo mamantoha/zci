@@ -109,7 +109,7 @@ This section covers some of `zci` more advanced features.
 
 ### Brands
 
-To make changes and updates via the `Help Center API` in your branded `Help Centers` you will use the URL of the specific brand.
+To make changes and updates via the `Help Center API` in your branded `Help Centers`, specify the URL of the specific brand.
 
 For more information, see [Managing multiple brands](https://support.zendesk.com/hc/en-us/articles/204577973-Managing-multiple-brands-Professional-Add-on-and-Enterprise-).
 
