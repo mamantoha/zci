@@ -20,7 +20,7 @@ command :'export:translations' do |c|
     crowdin_supported_languages = @crowdin.supported_languages
 
     @cli_config['categories'].each do |category_section|
-      zendesk_url = category.fetch('brand_url', @cli_config['zendesk_base_url'])
+      zendesk_url = category_section.fetch('brand_url', @cli_config['zendesk_base_url'])
 
       zendesk_client = ZCI.initialize_zendesk_client(
         zendesk_url,
