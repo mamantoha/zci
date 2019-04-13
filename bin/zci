@@ -1,6 +1,7 @@
 #!/usr/bin/env ruby
 require 'gli'
 require 'zci'
+require 'erb'
 
 include GLI::App
 include ZCI
@@ -40,7 +41,7 @@ pre do |global, command, options, args|
 
   # load project-specific configuration
   begin
-    @cli_config = YAML.load(File.read(global[:config])) || {}
+    @cli_config = YAML.load(ERB.new(File.read(global[:config])).result) || {}
   rescue Psych::SyntaxError => err
     exit_now! <<-EOS
       Could not parse YAML: #{err.message}
