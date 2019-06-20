@@ -41,10 +41,11 @@ command :'import:sources' do |c|
 
       # Get category's sections in Zendesk
       puts "[Zendesk] Get sections for Category with id #{source_category_id}"
-      sections = source_category.sections
+      sections = []
 
       sections_builder = []
-      sections.each do |section|
+      source_category.sections.all! do |section|
+        sections << section
         section_xml = build_section_xml(section)
 
         unless section_xml.nil?
@@ -56,9 +57,8 @@ command :'import:sources' do |c|
       articles_builder = []
       sections.each do |section|
         puts "[Zendesk] Get articles for Section with id #{section.id}"
-        articles = section.articles
 
-        articles.each do |article|
+        section.articles.all! do |article|
           article_xml = build_article_xml(article)
 
           unless article_xml.nil?
