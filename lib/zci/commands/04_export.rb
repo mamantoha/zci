@@ -76,13 +76,21 @@ command :'export:translations' do |c|
               if category_tr = category.translations.detect { |tr| tr.locale.casecmp(locale.locale) == 0 }
                 category_tr.update(title: category_hash[:name], body: category_hash[:description])
                 if category_tr.changed?
-                  category_tr.save
-                  puts "[Zendesk] Update `#{lang['crowdin_language_code']}` language translation for Category\##{category.id}."
+                  if category_tr.save
+                    puts "[Zendesk] Update `#{lang['crowdin_language_code']}` language translation for Category\##{category.id}."
+                  else
+                    puts "[Zendesk] Failed to update `#{lang['crowdin_language_code']}` language translation for Category\##{category.id}."
+                  end
+                else
+                  puts "[Zendesk] Skipping `#{lang['crowdin_language_code']}` language translation for Category\##{category.id}. Already up-to-date."
                 end
               else
                 category_tr = category.translations.build(locale: locale.locale, title: category_hash[:name], body: category_hash[:description])
-                category_tr.save
-                puts "[Zendesk] Create `#{lang['crowdin_language_code']}` language translation for Category\##{category.id}."
+                if category_tr.save
+                  puts "[Zendesk] Create `#{lang['crowdin_language_code']}` language translation for Category\##{category.id}."
+                else
+                  puts "[Zendesk] Failed to create `#{lang['crowdin_language_code']}` language translation for Category\##{category.id}."
+                end
               end
             end
           end
@@ -95,13 +103,21 @@ command :'export:translations' do |c|
               if section_tr = section.translations.detect { |tr| tr.locale.casecmp(locale.locale) == 0 }
                 section_tr.update(title: section_hash[:name], body: section_hash[:description])
                 if section_tr.changed?
-                  section_tr.save
-                  puts "[Zendesk] Update `#{lang['crowdin_language_code']}` language translation for Section\##{section.id}."
+                  if section_tr.save
+                    puts "[Zendesk] Update `#{lang['crowdin_language_code']}` language translation for Section\##{section.id}."
+                  else
+                    puts "[Zendesk] Failed to update `#{lang['crowdin_language_code']}` language translation for Section\##{section.id}."
+                  end
+                else
+                  puts "[Zendesk] Skipping `#{lang['crowdin_language_code']}` language translation for Section\##{section.id}. Already up-to-date."
                 end
               else
                 section_tr = section.translations.build(locale: locale.locale, title: section_hash[:name], body: section_hash[:description])
-                section_tr.save
-                puts "[Zendesk] Create `#{lang['crowdin_language_code']}` language translation for Section\##{section.id}."
+                if section_tr.save
+                  puts "[Zendesk] Create `#{lang['crowdin_language_code']}` language translation for Section\##{section.id}."
+                else
+                  puts "[Zendesk] Failed to create `#{lang['crowdin_language_code']}` language translation for Section\##{section.id}."
+                end
               end
             end
           end
@@ -114,13 +130,21 @@ command :'export:translations' do |c|
                 if article_tr = article.translations.detect { |tr| tr.locale.casecmp(locale.locale) == 0 }
                   article_tr.update(title: article_hash[:title], body: article_hash[:body])
                   if article_tr.changed?
-                    article_tr.save
-                    puts "[Zendesk] Update `#{lang['crowdin_language_code']}` language translation for Article\##{article.id}."
+                    if article_tr.save
+                      puts "[Zendesk] Update `#{lang['crowdin_language_code']}` language translation for Article\##{article.id}."
+                    else
+                      puts "[Zendesk] Failed to update `#{lang['crowdin_language_code']}` language translation for Article\##{article.id}."
+                    end
+                  else
+                    puts "[Zendesk] Skipping `#{lang['crowdin_language_code']}` language translation for Article\##{article.id}. Already up-to-date."
                   end
                 else
                   article_tr = article.translations.build(locale: locale.locale, draft: true, title: article_hash[:title], body: article_hash[:body])
-                  article_tr.save
-                  puts "[Zendesk] Create `#{lang['crowdin_language_code']}` language translation for Article\##{article.id}."
+                  if article_tr.save
+                    puts "[Zendesk] Create `#{lang['crowdin_language_code']}` language translation for Article\##{article.id}."
+                  else
+                    puts "[Zendesk] Failed to create `#{lang['crowdin_language_code']}` language translation for Article\##{article.id}."
+                  end
                 end
               end
             end
