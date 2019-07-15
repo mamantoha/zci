@@ -1,7 +1,6 @@
 module ZCI
-
   def build_category_xml(category)
-    category_xml = Nokogiri::XML::Builder.new do |xml|
+    Nokogiri::XML::Builder.new do |xml|
       xml.root {
         xml.category(id: category.id, position: category.position, identifier: 'category', type: 'document') {
           xml.name {
@@ -13,12 +12,10 @@ module ZCI
         }
       }
     end
-
-    return category_xml
   end
 
   def build_category_hash(category)
-    return {
+    {
       id:          category.id,
       position:    category.position,
       name:        category.name,
@@ -27,7 +24,7 @@ module ZCI
   end
 
   def build_section_xml(section)
-    section_xml = Nokogiri::XML::Builder.new do |xml|
+    Nokogiri::XML::Builder.new do |xml|
       xml.root {
         # id - id of the original section
         # category_id - id of the original category
@@ -41,12 +38,10 @@ module ZCI
         }
       }
     end
-
-    return section_xml
   end
 
   def build_section_hash(section)
-    return {
+    {
       id:          section.id,
       category_id: section.category_id,
       position:    section.position,
@@ -60,7 +55,7 @@ module ZCI
     article.title.to_s.gsub!(/[\u0001-\u001A]/ , '')
     article.body.to_s.gsub!(/[\u0001-\u001A]/ , '')
 
-    article_xml = Nokogiri::XML::Builder.new do |xml|
+    Nokogiri::XML::Builder.new do |xml|
       xml.root {
         # id - id of the original acticle
         # section_id - id of the original section
@@ -74,12 +69,10 @@ module ZCI
         }
       }
     end
-
-    return article_xml
   end
 
   def build_article_hash(article)
-    return {
+    {
       id:         article.id,
       section_id: article.section_id,
       position:   article.position,
@@ -87,5 +80,4 @@ module ZCI
       body:       article.body,
     }
   end
-
 end

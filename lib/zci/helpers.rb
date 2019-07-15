@@ -37,5 +37,5 @@ def get_remote_files_hierarchy(files, root = '/', hierarchy = { dirs: [], files:
     end
   end
 
-  return hierarchy
+  hierarchy
 end
