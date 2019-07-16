@@ -10,10 +10,12 @@ command :'project:info' do |c|
       crowdin_info = @crowdin.project_info
       puts "Crowdin: authentication successful."
       puts "Crowdin: available locales:"
+      source_language_code = crowdin_info["details"]["source_language"]["code"]
+      puts "  - #{source_language_code} (source)"
       crowdin_info["languages"].each do |lang|
         puts "  - #{lang['code']}"
       end
-    rescue => e
+    rescue
       puts "Crowdin: API key is incorect"
     end
     puts
@@ -45,7 +47,7 @@ command :'project:info' do |c|
 
         puts "  available locales:"
         locales.each do |locale|
-          puts "    - #{locale.locale}"
+          puts "    - #{locale.locale} #{'(default)' if locale.default?}"
         end
         puts
       end

@@ -35,7 +35,7 @@ command :'export:translations' do |c|
         zendesk_locales = zendesk_client.locales.select { |locale| locale.locale == language }
       end
 
-      zendesk_locales.select { |locale| !locale.default? }.each do |locale|
+      zendesk_locales.reject(&:default?).each do |locale|
         if lang = category_section['translations'].detect { |tr| tr['zendesk_locale'].casecmp(locale.locale) == 0 }
           crowdin_locale = crowdin_supported_languages.detect { |l| l['crowdin_code'] == lang['crowdin_language_code'] }['locale']
 
