@@ -9,6 +9,8 @@
 /test/version_tmp/
 /tmp/
 /zci.yml
+.DS_Store
+/samples
 
 ## Specific to RubyMotion:
 .dat*
