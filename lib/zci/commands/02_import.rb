@@ -2,7 +2,7 @@ desc 'Read categories/section/articles from Zendesk and upload resource files to
 command :'import:sources' do |c|
   c.desc 'Directory of resource files'
   c.long_desc <<-EOS.strip_heredoc
-    This is the directory where the project's files will be store.
+    This is the directory where the project's files will be stored.
   EOS
   c.default_value 'resources'
   c.arg_name 'dir'
@@ -40,7 +40,7 @@ command :'import:sources' do |c|
       category_hash = build_category_hash(source_category).merge({ xml: category_xml })
 
       # Get category's sections in Zendesk
-      puts "[Zendesk] Get sections for Category with id #{source_category_id}"
+      puts "[Zendesk] Getting sections for Category with id #{source_category_id}"
       sections = []
 
       sections_builder = []
@@ -56,7 +56,7 @@ command :'import:sources' do |c|
       # Get articles for each section
       articles_builder = []
       sections.each do |section|
-        puts "[Zendesk] Get articles for Section with id #{section.id}"
+        puts "[Zendesk] Getting articles for Section with id #{section.id}"
 
         section.articles.all! do |article|
           article_xml = build_article_xml(article)
@@ -78,7 +78,7 @@ command :'import:sources' do |c|
 
       # Create directory for Category on Crowdin if it does not exist yet
       unless remote_project_tree[:dirs].include?("/#{source_category_id}")
-        puts "[Crowdin] Create directory `#{source_category_id}`"
+        puts "[Crowdin] Creating directory `#{source_category_id}`"
         @crowdin.add_directory(source_category_id.to_s)
         @crowdin.change_directory(source_category_id.to_s, title: source_category.attributes[:name])
       end
@@ -100,10 +100,10 @@ command :'import:sources' do |c|
       ]
 
       if remote_project_tree[:files].include?("/#{source_category_id}/#{file_name}")
-        puts "[Crowdin] Update category file `#{file_name}`"
+        puts "[Crowdin] Updating category file `#{file_name}`"
         @crowdin.update_file(files, type: 'webxml')
       else
-        puts "[Crowdin] Add category file `#{file_name}`"
+        puts "[Crowdin] Adding category file `#{file_name}`"
         @crowdin.add_file(files, type: 'webxml')
       end
 
@@ -125,10 +125,10 @@ command :'import:sources' do |c|
         ]
 
         if remote_project_tree[:files].include?("/#{source_category_id}/#{file_name}")
-          puts "[Crowdin] Update section file `#{file_name}`"
+          puts "[Crowdin] Updating section file `#{file_name}`"
           @crowdin.update_file(files, type: 'webxml')
         else
-          puts "[Crowdin] Add section file `#{file_name}`"
+          puts "[Crowdin] Adding section file `#{file_name}`"
           @crowdin.add_file(files, type: 'webxml')
         end
       end
@@ -151,10 +151,10 @@ command :'import:sources' do |c|
         ]
 
         if remote_project_tree[:files].include?("/#{source_category_id}/#{file_name}")
-          puts "[Crowdin] Update article file `#{file_name}`"
+          puts "[Crowdin] Updating article file `#{file_name}`"
           @crowdin.update_file(files, type: 'webxml')
         else
-          puts "[Crowdin] Add article file `#{file_name}`"
+          puts "[Crowdin] Adding article file `#{file_name}`"
           @crowdin.add_file(files, type: 'webxml')
 
         end
