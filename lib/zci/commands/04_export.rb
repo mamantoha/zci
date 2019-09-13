@@ -8,7 +8,7 @@ command :'export:translations' do |c|
   c.arg_name 'dir'
   c.flag [:resources_dir]
 
-  c.desc 'Defines what language upload translations to. By default translations will be uploaded for all languages'
+  c.desc 'Defines in which language translations should be uploaded. By default translations are uploaded for all languages'
   c.default_value 'all'
   c.arg_name 'language_code'
   c.flag [:l, :language]
@@ -77,7 +77,7 @@ command :'export:translations' do |c|
                 category_tr.update(title: category_hash[:name], body: category_hash[:description])
                 if category_tr.changed?
                   if category_tr.save
-                    puts "[Zendesk] Update `#{lang['crowdin_language_code']}` language translation for Category\##{category.id}."
+                    puts "[Zendesk] Updating `#{lang['crowdin_language_code']}` language translation for Category\##{category.id}."
                   else
                     puts "[Zendesk] Failed to update `#{lang['crowdin_language_code']}` language translation for Category\##{category.id}."
                   end
@@ -87,7 +87,7 @@ command :'export:translations' do |c|
               else
                 category_tr = category.translations.build(locale: locale.locale, title: category_hash[:name], body: category_hash[:description])
                 if category_tr.save
-                  puts "[Zendesk] Create `#{lang['crowdin_language_code']}` language translation for Category\##{category.id}."
+                  puts "[Zendesk] Creating `#{lang['crowdin_language_code']}` language translation for Category\##{category.id}."
                 else
                   puts "[Zendesk] Failed to create `#{lang['crowdin_language_code']}` language translation for Category\##{category.id}."
                 end
@@ -104,7 +104,7 @@ command :'export:translations' do |c|
                 section_tr.update(title: section_hash[:name], body: section_hash[:description])
                 if section_tr.changed?
                   if section_tr.save
-                    puts "[Zendesk] Update `#{lang['crowdin_language_code']}` language translation for Section\##{section.id}."
+                    puts "[Zendesk] Updating `#{lang['crowdin_language_code']}` language translation for Section\##{section.id}."
                   else
                     puts "[Zendesk] Failed to update `#{lang['crowdin_language_code']}` language translation for Section\##{section.id}."
                   end
@@ -114,7 +114,7 @@ command :'export:translations' do |c|
               else
                 section_tr = section.translations.build(locale: locale.locale, title: section_hash[:name], body: section_hash[:description])
                 if section_tr.save
-                  puts "[Zendesk] Create `#{lang['crowdin_language_code']}` language translation for Section\##{section.id}."
+                  puts "[Zendesk] Creating `#{lang['crowdin_language_code']}` language translation for Section\##{section.id}."
                 else
                   puts "[Zendesk] Failed to create `#{lang['crowdin_language_code']}` language translation for Section\##{section.id}."
                 end
@@ -131,7 +131,7 @@ command :'export:translations' do |c|
                   article_tr.update(title: article_hash[:title], body: article_hash[:body])
                   if article_tr.changed?
                     if article_tr.save
-                      puts "[Zendesk] Update `#{lang['crowdin_language_code']}` language translation for Article\##{article.id}."
+                      puts "[Zendesk] Updating `#{lang['crowdin_language_code']}` language translation for Article\##{article.id}."
                     else
                       puts "[Zendesk] Failed to update `#{lang['crowdin_language_code']}` language translation for Article\##{article.id}."
                     end
@@ -141,7 +141,7 @@ command :'export:translations' do |c|
                 else
                   article_tr = article.translations.build(locale: locale.locale, draft: true, title: article_hash[:title], body: article_hash[:body])
                   if article_tr.save
-                    puts "[Zendesk] Create `#{lang['crowdin_language_code']}` language translation for Article\##{article.id}."
+                    puts "[Zendesk] Creating `#{lang['crowdin_language_code']}` language translation for Article\##{article.id}."
                   else
                     puts "[Zendesk] Failed to create `#{lang['crowdin_language_code']}` language translation for Article\##{article.id}."
                   end
