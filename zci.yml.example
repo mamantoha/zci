@@ -1,13 +1,13 @@
 ---
 # Crowdin API credentials
 crowdin_project_id: '{{crowdin-project-id}}'
-crowdin_api_key: '{{your-crowdin-api-key}}'
+crowdin_api_key: '{{crowdin-project-api-key}}'
 crowdin_base_url: 'https://api.crowdin.com'
 
 # Zendesk API credentials
 zendesk_base_url: 'https://{{subdomain}}.zendesk.com/api/v2/'
-zendesk_username: '{{your-zendesk-username}}'
-zendesk_password: '{{your-zendesk-password}}'
+zendesk_username: '{{zendesk-admin-username}}'
+zendesk_password: '{{zendesk-admin-password}}'
 
 # Zendesk catogories
 categories:
